@@ -18,6 +18,7 @@
     "class-validator": "^0.9.1",
     "cors": "^2.8.5",
     "express": "^4.15.4",
+    "faker": "^4.1.0",
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
     "pug": "^2.0.4",
@@ -30,6 +31,7 @@
     "tsc": "tsc",
     "start": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "prod": "tsc && node ./build/app.js",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
+    "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "reset": "rm database.sqlite && npm run migrate"
   }
 }
