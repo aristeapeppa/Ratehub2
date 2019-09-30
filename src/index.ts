@@ -7,6 +7,8 @@ import * as helmet from "helmet";
 import * as cors from "cors";
 import routes from "./routes";
 
+require('dotenv').config();
+
 //Connects to the Database -> then starts the express
 createConnection()
   .then(async connection => {

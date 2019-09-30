@@ -14,6 +14,7 @@ export class CreateUsers1000000000000 implements MigrationInterface {
     user.role = "ADMIN";
     users.push(user);
 
+    // Create other users
     for (var i = 0; i < 10; i++) {
       let user = new User();
       user.username = Faker.internet.userName();
