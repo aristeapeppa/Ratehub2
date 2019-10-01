@@ -1,3 +1,4 @@
+import * as constants from '../../constants';
 import * as Faker from 'faker';
 import * as YoutubeRandom from 'youtube-random-video';
 import { MigrationInterface, QueryRunner, getRepository, getConnection } from "typeorm";
@@ -8,24 +9,27 @@ export class CreateClips2000000000000 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<any> {
         let clips = [];
 
-        console.log(1)
-
         function getRandomVideo() {
-            console.log(5)
             return new Promise(resolve => {
-                console.log(6)
                 YoutubeRandom.getRandomVid(process.env.YT_API_KEY, function(err, data) {
-                    console.log('---------------------------------');
-                    console.log(data)
-                    resolve(data);
+                    if (err) {
+                        console.log("ERROR >> ", err);
+                    } else {
+                        resolve(data);
+                    }
                 })
             });
         }
 
         let iter = [];
-        for (var i = 0; i < 3; i++) {
-            iter.push(0);
+        for (var i = 0; i < constants.NO_CLIPS; i++) {
+            iter.push(null);
         }
+
+        const users = await getRepository(User)
+            .createQueryBuilder("user")
+            .where("user.role = :role", {role: "UPLOADER"})
+            .getMany();
 
         async function processArray(ar) {
             for (const item of ar) {
@@ -35,20 +39,13 @@ export class CreateClips2000000000000 implements MigrationInterface {
                 clip.title = data.snippet.title;
                 clip.description = data.snippet.description;
                 clip.uid = data.id.videoId;
-                const user = await getConnection()
-                    .createQueryBuilder()
-                    .select("user")
-                    .from(User, "user")
-                    .where("user.id = :id", { id: Math.floor(Math.random() * 13) + 1 })
-                    .getOne();
-                clip.user = user;
+                clip.user = users[Math.floor(Math.random() * users.length)];
                 clips.push(clip);
             }
         }
 
         await processArray(iter);
 
-        console.log(4)
         const userRepository = getRepository(Clip);
         await userRepository.save(clips);
     }

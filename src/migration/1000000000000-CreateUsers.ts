@@ -1,3 +1,4 @@
+import * as constants from '../../constants';
 import * as Faker from 'faker';
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { User } from "../entity/User";
@@ -9,18 +10,28 @@ export class CreateUsers1000000000000 implements MigrationInterface {
     // Create admin
     let user = new User();
     user.username = "admin";
-    user.password = "admin";
+    user.password = "1234";
     user.hashPassword();
     user.role = "ADMIN";
     users.push(user);
 
-    // Create other users
-    for (var i = 0; i < 10; i++) {
+    // Create uploaders
+    for (var i = 0; i < constants.NO_UPLOADERS; i++) {
       let user = new User();
       user.username = Faker.internet.userName();
-      user.password = "test";
+      user.password = "1234";
       user.hashPassword();
       user.role = "UPLOADER";
+      users.push(user);
+    }
+
+    // Create raters
+    for (var i = 0; i < constants.NO_UPLOADERS; i++) {
+      let user = new User();
+      user.username = Faker.internet.userName();
+      user.password = "1234";
+      user.hashPassword();
+      user.role = "RATER";
       users.push(user);
     }
 
