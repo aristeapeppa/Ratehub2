@@ -24,7 +24,7 @@ export class CreateRatings3000000000000 implements MigrationInterface {
             for (let i = 0; i < no_ratings; i++) {
                 let rating = new Rating();
                 rating.stars = Math.floor(Math.random() * 5) + 1;
-                if (Math.random() > constants.REVIEW_CHANCE) {
+                if (Math.random() <= constants.REVIEW_CHANCE) {
                     rating.title = Faker.lorem.sentence();
                     rating.description = Faker.lorem.paragraphs();
                 } else {
