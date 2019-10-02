@@ -27,7 +27,7 @@
     "sqlite3": "^4.0.3",
     "ts-node-dev": "^1.0.0-pre.32",
     "typeorm": "0.2.12",
-    "youtube-random-video": "^1.0.5"
+    "youtube-playlist": "^1.0.2"
   },
   "scripts": {
     "tsc": "tsc",
