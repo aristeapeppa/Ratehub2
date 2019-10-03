@@ -9,12 +9,12 @@ import {
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
-import { Clip } from './Clip';
-import { Rating } from './Rating';
+import { ClipModel } from './ClipModel';
+import { RatingModel } from './RatingModel';
 
-@Entity()
+@Entity("users")
 @Unique(["username"])
-export class User {
+export class UserModel {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -38,11 +38,11 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(type => Clip, clip => clip.user)
-  clips: Clip[];
+  @OneToMany(type => ClipModel, clip => clip.user)
+  clips: ClipModel[];
 
-  @OneToMany(type => Rating, rating => rating.user)
-  ratings: Rating[];
+  @OneToMany(type => RatingModel, rating => rating.user)
+  ratings: RatingModel[];
 
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);

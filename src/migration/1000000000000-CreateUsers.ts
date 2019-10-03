@@ -1,14 +1,14 @@
 import * as constants from '../../constants';
 import * as Faker from 'faker';
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
-import { User } from "../entity/User";
+import { UserModel } from "../models/UserModel";
 
 export class CreateUsers1000000000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     let users =[];
 
     // Create admin
-    let user = new User();
+    let user = new UserModel();
     user.username = "admin";
     user.password = "1234";
     user.hashPassword();
@@ -17,7 +17,7 @@ export class CreateUsers1000000000000 implements MigrationInterface {
 
     // Create uploaders
     for (var i = 0; i < constants.NO_UPLOADERS; i++) {
-      let user = new User();
+      let user = new UserModel();
       user.username = Faker.internet.userName();
       user.password = "1234";
       user.hashPassword();
@@ -27,7 +27,7 @@ export class CreateUsers1000000000000 implements MigrationInterface {
 
     // Create raters
     for (var i = 0; i < constants.NO_UPLOADERS; i++) {
-      let user = new User();
+      let user = new UserModel();
       user.username = Faker.internet.userName();
       user.password = "1234";
       user.hashPassword();
@@ -35,7 +35,7 @@ export class CreateUsers1000000000000 implements MigrationInterface {
       users.push(user);
     }
 
-    const userRepository = getRepository(User);
+    const userRepository = getRepository(UserModel);
     await userRepository.save(users);
   }
 

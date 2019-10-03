@@ -10,11 +10,11 @@ import {
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
-import {User} from "./User";
-import {Rating} from "./Rating";
+import {UserModel} from "./UserModel";
+import {RatingModel} from "./RatingModel";
 
-@Entity()
-export class Clip {
+@Entity("clips")
+export class ClipModel {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,9 +37,9 @@ export class Clip {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(type => Rating, rating => rating.clip)
-  ratings: Rating[];
+  @OneToMany(type => RatingModel, rating => rating.clip)
+  ratings: RatingModel[];
 
-  @ManyToOne(type => User, user => user.clips)
-  user: User;
+  @ManyToOne(type => UserModel, user => user.clips)
+  user: UserModel;
 }

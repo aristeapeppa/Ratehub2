@@ -8,11 +8,11 @@ import {
   ManyToOne
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
-import { User } from "./User";
-import { Clip } from "./Clip";
+import { UserModel } from "./UserModel";
+import { ClipModel } from "./ClipModel";
 
-@Entity()
-export class Rating {
+@Entity("ratings")
+export class RatingModel {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,9 +34,9 @@ export class Rating {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(type => Clip, clip => clip.ratings)
-  clip: Clip;
+  @ManyToOne(type => ClipModel, clip => clip.ratings)
+  clip: ClipModel;
 
-  @ManyToOne(type => User, user => user.ratings)
-  user: User;
+  @ManyToOne(type => UserModel, user => user.ratings)
+  user: UserModel;
 }
