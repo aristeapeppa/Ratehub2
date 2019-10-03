@@ -18,12 +18,8 @@ class ClipController {
             .createQueryBuilder()
             .select("clip")
             .from(ClipModel, "clip")
-            .where("clip.id = :id", { id: 1 })
+            .where("clip.id = :id", { id: req.params.id })
             .getOne();
-        // .select("clip")
-        // .from(ClipModel, "clip")
-        // .where("clip.id = :id", { id: req.params.id })
-        // .getOne();
 
         console.log(clip);
         res.render('index', {
