@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getRepository, getConnection } from "typeorm";
 import { validate } from "class-validator";
 
-import { Clip } from "../classes/clip";
+import { Clip } from "../classes/Clip";
 
 
 class ClipController {
@@ -11,8 +11,9 @@ class ClipController {
         console.log("!!", req.params)
         let clip = new Clip();
         await clip.init(req.params.id);
-        console.log(clip.uid);
         res.render('index', {
+            title: clip.title,
+            description: clip.description,
             uid: clip.uid
         });
     };
