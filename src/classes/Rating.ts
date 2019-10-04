@@ -8,7 +8,7 @@ export class Rating {
     private _title: string;
     private _review: string;
 
-    constructor(id: number, stars: number, title: string, review: string) {
+    constructor(stars: number, title: string, review: string, id?: number) {
         this._id = id;
         this._stars = stars;
         this._title = title;
@@ -16,17 +16,15 @@ export class Rating {
     }
 
     async init(id) {
-        const clip = await getConnection()
+        const rating = await getConnection()
             .createQueryBuilder()
             .select("clip")
-            .from(ClipModel, "clip")
-            .where("clip.id = :id", { id: id })
+            .from(RatingModel, "rating")
+            .where("rating.id = :id", { id: id })
             .getOne();
-        this._id = clip.id;
-        this._title = clip.title;
-        this._description = clip.description;
-        this._uid = clip.uid;
-        console.log(">", this._uid)
+        this._id = rating.id;
+        this._title = rating.title;
+        this._review = rating.description;
     }
 
     get title() {
@@ -39,6 +37,17 @@ export class Rating {
 
     get review() {
         return this._review;
+    }
+
+    async save() {
+        await getConnection()
+            .createQueryBuilder()
+            .insert()
+            .into(RatingModel)
+            .values([
+                { stars: this.stars, title: this.title, description: this.review }
+            ])
+            .execute();
     }
 
 }

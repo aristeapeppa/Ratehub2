@@ -31,7 +31,7 @@ export class Clip {
             .getMany();
 
         ratings.forEach((rat) => {
-            let rating = new Rating(rat.id, rat.stars, rat.title, rat.description);
+            let rating = new Rating(rat.stars, rat.title, rat.description, rat.id);
             this._ratings.push(rating);
         });
 
@@ -47,7 +47,6 @@ export class Clip {
     get title() {
         return this._title;
     }
-
 
     get description() {
         return this._description;
@@ -72,7 +71,20 @@ export class Clip {
         this._ratings.forEach((rating) => {
             sum += rating.stars;
         });
-        return Math.round((sum/this._ratings.length) * 10) / 10;
+        return Math.round((sum / this._ratings.length) * 10) / 10;
+    }
+
+    async rate(stars, title, description) {
+        let rating = new Rating(stars, title, description);
+        await rating.save();
+        await getConnection()
+            .createQueryBuilder()
+            .insert()
+            .into(Rating)
+            .values([
+                { stars: stars }
+            ])
+            .execute();
     }
 
 }
