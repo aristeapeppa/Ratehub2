@@ -3,8 +3,6 @@ import ClipController from "../controllers/ClipController";
 
 const router = Router();
 
-//Get all clips
-// router.get("/", ClipController.listAll);
-router.get("/:id", ClipController.getOneById);
+router.get("/clip/:id", ClipController.getOneById);
 
 export default router;

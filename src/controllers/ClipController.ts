@@ -2,26 +2,16 @@ import { Request, Response } from "express";
 import { getRepository, getConnection } from "typeorm";
 import { validate } from "class-validator";
 
-import { ClipModel } from "../models/ClipModel";
+import { Clip } from "../classes/clip";
 
 
 class ClipController {
 
-    static listAll = async (req: Request, res: Response) => {
-        res.render('index', {
-            title: 'Sequelize: Express Example'
-        });
-    };
-
     static getOneById = async (req: Request, res: Response) => {
-        const clip = await getConnection()
-            .createQueryBuilder()
-            .select("clip")
-            .from(ClipModel, "clip")
-            .where("clip.id = :id", { id: req.params.id })
-            .getOne();
-
-        console.log(clip);
+        console.log("!!", req.params)
+        let clip = new Clip();
+        await clip.init(req.params.id);
+        console.log(clip.uid);
         res.render('index', {
             uid: clip.uid
         });
