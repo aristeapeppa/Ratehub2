@@ -57,8 +57,22 @@ export class Clip {
         return this._uid;
     }
 
-    get ratings() {
+    get reviews() {
+        let reviews = [];
+        this._ratings.forEach((rating) => {
+            if (rating.title != '') {
+                reviews.push(rating);
+            }
+        });
+        return reviews;
+    }
 
+    get score() {
+        let sum = 0;
+        this._ratings.forEach((rating) => {
+            sum += rating.stars;
+        });
+        return Math.round((sum/this._ratings.length) * 10) / 10;
     }
 
 }

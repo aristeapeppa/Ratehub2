@@ -11,10 +11,12 @@ class ClipController {
         console.log("!!", req.params)
         let clip = new Clip();
         await clip.init(req.params.id);
-        res.render('index', {
+        res.render('clip', {
             title: clip.title,
             description: clip.description,
-            uid: clip.uid
+            uid: clip.uid,
+            score: clip.score,
+            reviews: clip.reviews
         });
     };
 

@@ -33,13 +33,12 @@ export class Rating {
         return this._title;
     }
 
-
-    get description() {
-        return this._description;
+    get stars() {
+        return this._stars;
     }
 
-    get uid() {
-        return this._uid;
+    get review() {
+        return this._review;
     }
 
 }
