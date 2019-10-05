@@ -3,6 +3,7 @@ import * as jwt from "jsonwebtoken";
 import config from "../config/config";
 
 export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
+
   //Get the jwt token from the head
   const token = <string>req.headers["auth"];
   let jwtPayload;
@@ -11,6 +12,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   try {
     jwtPayload = <any>jwt.verify(token, config.jwtSecret);
     res.locals.jwtPayload = jwtPayload;
+    res.locals.userId = jwtPayload.userId;
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
     res.status(401).send();

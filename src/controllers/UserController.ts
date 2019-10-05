@@ -33,11 +33,9 @@ class UserController {
         }
         let user = new User(username, password);
         let ok = await user.login();
-        console.log("??", ok);
         res
             .status(201)
-            .cookie('ratehub', { jwt: ok })
-            .redirect(301, "../clip/5");
+            .send({token: ok});
     };
 
     // ----------------------------------------------

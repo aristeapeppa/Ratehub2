@@ -57,7 +57,6 @@ export class User {
     async login() {
         const userRepository = getRepository(UserModel);
         let user: UserModel;
-        console.log(1)
         try {
             user = await userRepository.findOneOrFail({ where: { username: this._username } });
         } catch (error) {
@@ -65,7 +64,6 @@ export class User {
             return;
         }
 
-        console.log(2)
         //Check if encrypted password match
         if (!bcrypt.compareSync(this._password, user.password)) {
             // res.status(401).send();
@@ -73,7 +71,6 @@ export class User {
         }
 
 
-        console.log(3)
         const token = jwt.sign(
             { userId: user.id, username: user.username },
             config.jwtSecret,

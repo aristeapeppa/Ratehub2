@@ -10,7 +10,6 @@ class ClipController {
     static homepageRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");
         await clipsCollection.init("newest");
-        console.log(">>>", clipsCollection.things)
         res.render('clips', {
             clips: clipsCollection.things,
             length: clipsCollection.length

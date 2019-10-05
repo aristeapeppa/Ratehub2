@@ -34,6 +34,12 @@ export class RatingModel {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ type: 'int', nullable: true })
+  clipId?: number | null
+
+  @Column({ type: 'int', nullable: true })
+  userId?: number | null
+
   @ManyToOne(type => ClipModel, clip => clip.ratings)
   clip: ClipModel;
 

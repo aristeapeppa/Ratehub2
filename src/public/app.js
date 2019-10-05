@@ -1,4 +1,28 @@
 $(document).ready(function() {
+
+    console.log(localStorage.getItem('token'));
+
+    $.ajax({
+        type: "GET",
+        url: "/rating/4",
+        contentType: "application/json",
+        headers: {"auth": localStorage.getItem('token')}
+    }).done(function(response) {
+        console.log("&&&&&", response);
+    });
+
+    $('.starrr').starrr({
+        rating: 0,
+        change: function(e, value) {
+            if (value) {
+                $('.your-choice-was').show();
+                $('.choice').text(value);
+            } else {
+                $('.your-choice-was').hide();
+            }
+        }
+    });
+
     $("#register").submit(function(event) {
         event.preventDefault();
         var formData = {
@@ -30,9 +54,10 @@ $(document).ready(function() {
             url: "/user/login",
             contentType: "application/json",
             data: JSON.stringify(formData)
-        }).done(function(response) {
-            window.location.replace("http://localhost:3000/clip/5");
-            // $("#server-results").html(response);
+        }).done(function(res) {
+            localStorage.setItem("token", res.token);
+            window.location.replace("http://localhost:3000");
+
         });
     });
 

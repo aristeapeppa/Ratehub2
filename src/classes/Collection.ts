@@ -17,7 +17,6 @@ export class Collection {
     }
 
     async init(action: "search" | "newest", wanted?: string) {
-        console.log(wanted)
         this._things = [];
         let things;
         let thingModel;
@@ -48,13 +47,11 @@ export class Collection {
             case "search": {
                 const thingRepository = getRepository(thingModel);
                 things = await thingRepository.find({
-                    where: [{
-                        title: Like("%" + wanted + "%")
-                    }, {
-                        description: Like("%" + wanted + "%")
-                    }]
+                    where: [
+                        { title: Like("%" + wanted + "%") },
+                        { description: Like("%" + wanted + "%") }
+                    ]
                 });
-                console.log("***", things);
                 break;
             }
         }
@@ -69,7 +66,6 @@ export class Collection {
                         break;
                     }
                     case "clips": {
-                        console.log(1)
                         thng = new Clip();
                         await thng.init(thing.id);
                         break;
@@ -81,16 +77,13 @@ export class Collection {
                 }
                 this._things.push(thng);
 
-                console.log("5")
             }
 
-            console.log("9")
         }
         await a();
     }
 
     get things() {
-        console.log("-----", this._things)
         return this._things;
     }
 
