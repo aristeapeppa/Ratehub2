@@ -26,6 +26,7 @@ createConnection()
     app.use(cors());
     app.use(helmet());
     app.use(bodyParser.json());
+    // app.use(bodyParser.text({type: 'text/xml'}));
 
     //Set all routes from routes folder
     app.use("/", routes);

@@ -3,14 +3,14 @@ block content
 
   .row
     .col-md-4.offset-md-4
-      form
-      .form-group
-          label(for='exampleInputEmail1') Username
-          input#exampleInputEmail1.form-control(type='text', placeholder='Enter username')
-      .form-group
-          label(for='exampleInputPassword1') Password
-          input#exampleInputPassword1.form-control(type='password', placeholder='Password')
-      .form-group.form-check
-          input#exampleCheck1.form-check-input(type='checkbox')
-          label.form-check-label(for='exampleCheck1') I want to be an uploader
-      button.btn.btn-primary(type='submit') Submit
+      form#register
+        .form-group
+            label(for='exampleInputEmail1') Username
+            input#exampleInputEmail1.form-control(name='username', type='text', placeholder='Enter username')
+        .form-group
+            label(for='exampleInputPassword1') Password
+            input#exampleInputPassword1.form-control(name='password', type='password', placeholder='Password')
+        .form-group.form-check
+            input#exampleCheck1.form-check-input(name='role', type='checkbox')
+            label.form-check-label(for='exampleCheck1') I want to be an uploader
+        button.btn.btn-primary(name='submit', type='submit') Submit

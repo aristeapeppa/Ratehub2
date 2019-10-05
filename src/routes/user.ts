@@ -8,6 +8,7 @@ import { Router } from "express";
 
 
   router.get("/register", UserController.registerRender);
+  router.post("/register", UserController.register);
   router.get("/login", UserController.loginRender);
 
   // ----------------------------------------------

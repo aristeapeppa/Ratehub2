@@ -11,6 +11,11 @@ class UserController {
         res.render('register', {});
     };
 
+    static register = async (req: Request, res: Response) => {
+        console.log(">>>>>>>>>>");
+        console.log(req.body);
+        res.status(201).send("User created");
+    };
 
     static loginRender = async (req: Request, res: Response) => {
         res.render('login', {});
