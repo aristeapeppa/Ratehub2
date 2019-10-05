@@ -35,13 +35,10 @@ export class Clip {
             this._ratings.push(rating);
         });
 
-        console.log("??", this._ratings);
-        console.log("!!", clip);
         this._id = clip.id;
         this._title = clip.title;
         this._description = clip.description;
         this._uid = clip.uid;
-        console.log(">", this._uid)
     }
 
     get title() {
@@ -77,14 +74,6 @@ export class Clip {
     async rate(stars, title, description) {
         let rating = new Rating(stars, title, description);
         await rating.save();
-        await getConnection()
-            .createQueryBuilder()
-            .insert()
-            .into(Rating)
-            .values([
-                { stars: stars }
-            ])
-            .execute();
     }
 
 }
