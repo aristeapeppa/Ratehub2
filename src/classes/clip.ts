@@ -11,7 +11,12 @@ export class Clip {
     private _uid: string;
     private _ratings: Rating[] = [];
 
-    constructor() { }
+    constructor(
+        // title: string,
+        // description: string,
+        // uid?: string,
+        // id?: number
+    ) { }
 
     async init(id) {
 
