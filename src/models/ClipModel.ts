@@ -37,6 +37,9 @@ export class ClipModel {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ type: 'int', nullable: true })
+  userId?: number | null
+
   @OneToMany(type => RatingModel, rating => rating.clip)
   ratings: RatingModel[];
 
