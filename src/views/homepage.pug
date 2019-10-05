@@ -1,9 +1,0 @@
-extends layout
-block content
-
-  .row
-    .col-md-6.offset-md-3
-    each clip, index in clips
-       hr
-       h5 #{clip.averageStars} #[small /5] #{clip.title}
-       p #{clip.description}

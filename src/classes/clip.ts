@@ -46,12 +46,21 @@ export class Clip {
         this._uid = clip.uid;
     }
 
+    get id() {
+        return this._id;
+    }
+
     get title() {
         return this._title;
     }
 
     get description() {
         return this._description;
+    }
+
+
+    get descriptionShort() {
+        return this._description.substring(0, 150) + ' ...';
     }
 
     get uid() {

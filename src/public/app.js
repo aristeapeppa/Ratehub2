@@ -35,4 +35,16 @@ $(document).ready(function() {
             // $("#server-results").html(response);
         });
     });
+
+
+    $("#search").submit(function(event) {
+        event.preventDefault();
+        var formData = {
+            'wanted': $('input[name=wanted]').val()
+        };
+        // var form_data = $(this).serialize(); //Encode form elements for submission
+        console.log(formData.wanted)
+        window.location.replace("http://localhost:3000/clip/search/" + formData.wanted);
+    });
+
 });

@@ -9,9 +9,9 @@ class ClipController {
 
     static homepageRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");
-        await clipsCollection.init();
+        await clipsCollection.init("newest");
         console.log(">>>", clipsCollection.things)
-        res.render('homepage', {
+        res.render('clips', {
             clips: clipsCollection.things,
             length: clipsCollection.length
         });
@@ -39,6 +39,17 @@ class ClipController {
             description: clip.description,
             score: clip.score,
             reviews: clip.reviews
+        });
+    };
+
+
+    static searchRender = async (req: Request, res: Response) => {
+        let clipsCollection = new Collection("clips");
+        await clipsCollection.init("search", req.params.wanted);
+        res.render('clips', {
+            clips: clipsCollection.things,
+            length: clipsCollection.length,
+            wanted: req.params.wanted
         });
     };
 

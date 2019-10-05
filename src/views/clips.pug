@@ -1,0 +1,21 @@
+extends layout
+block content
+
+  .row
+    .col-md-6.offset-md-3
+      if wanted
+        h2 Search for "#{wanted}"
+        p (#{length} results)
+      else
+        h2 Newest
+      br
+      each clip, index in clips
+        if index != 0
+          hr
+        .row
+            .col-md-4
+              img.img-fluid(src='https://img.youtube.com/vi/' + clip.uid + '/hqdefault.jpg')
+            .col-md-8
+              a(href="/clip/"+clip.id)
+                h5 #{clip.score} #[small /5] #{clip.title}
+              p #{clip.descriptionShort}
