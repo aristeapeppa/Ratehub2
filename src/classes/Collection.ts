@@ -46,10 +46,13 @@ export class Collection {
                 break;
             }
             case "search": {
-                console.log(wanted);
                 const thingRepository = getRepository(thingModel);
                 things = await thingRepository.find({
-                    title: Like("%" + wanted + "%")
+                    where: [{
+                        title: Like("%" + wanted + "%")
+                    }, {
+                        description: Like("%" + wanted + "%")
+                    }]
                 });
                 console.log("***", things);
                 break;
