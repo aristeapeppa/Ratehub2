@@ -25,32 +25,22 @@ export class Rating {
                 .where("rating.id = :id", { id: id })
                 .getOne();
         } else {
-            console.log("prin")
-            console.log(typeof clipId)
-            console.log(typeof userId)
-
-            // rating = await getRepository(RatingModel)
-            //     .createQueryBuilder("rating")
-            //     .where("rating.clipId = :clipId AND rating.userId = :userID", { clipId: 4, userId: 14 })
-            //     .getOne();
-
 
             const ratingRepository = getRepository(RatingModel);
-            rating = await ratingRepository.find({
+            rating = await ratingRepository.findOne({
                 where: {
                     clipId: clipId,
                     userId: userId
                 }
             });
-            console.log(rating)
-            console.log(rating.length)
-            console.log("end")
         }
 
-        this._id = rating.id;
-        this._stars = rating.stars;
-        this._title = rating.title;
-        this._review = rating.description;
+        if (rating) {
+            this._id = rating.id;
+            this._stars = rating.stars;
+            this._title = rating.title;
+            this._review = rating.description;
+        }
     }
 
     get title() {

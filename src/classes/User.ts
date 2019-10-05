@@ -76,7 +76,6 @@ export class User {
             config.jwtSecret,
             { expiresIn: "1h" }
         );
-        console.log(">>>",token)
 
         return token;
     }

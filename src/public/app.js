@@ -1,27 +1,34 @@
 $(document).ready(function() {
 
-    console.log(localStorage.getItem('token'));
+    var token = localStorage.getItem('token');
+    var url = window.location.href;
 
-    $.ajax({
-        type: "GET",
-        url: "/rating/4",
-        contentType: "application/json",
-        headers: {"auth": localStorage.getItem('token')}
-    }).done(function(response) {
-        console.log("&&&&&", response);
-    });
+    var splits = window.location.href.split("/");
 
-    $('.starrr').starrr({
-        rating: 0,
-        change: function(e, value) {
-            if (value) {
-                $('.your-choice-was').show();
-                $('.choice').text(value);
-            } else {
-                $('.your-choice-was').hide();
-            }
-        }
-    });
+    if (url.includes("/clip/") && token) {
+        $.ajax({
+            type: "GET",
+            url: "/rating/" + splits[splits.length - 1],
+            contentType: "application/json",
+            headers: { "auth": localStorage.getItem('token') }
+        }).done(function(res) {
+            console.log("&&&&&", res);
+            $('.starrr').starrr({
+                rating: res.stars,
+                change: function(e, value) {
+                    if (value) {
+                        $('.your-choice-was').show();
+                        $('.choice').text(value);
+                    } else {
+                        $('.your-choice-was').hide();
+                    }
+                }
+            });
+        });
+
+
+    }
+
 
     $("#register").submit(function(event) {
         event.preventDefault();
@@ -68,7 +75,6 @@ $(document).ready(function() {
             'wanted': $('input[name=wanted]').val()
         };
         // var form_data = $(this).serialize(); //Encode form elements for submission
-        console.log(formData.wanted)
         window.location.replace("http://localhost:3000/clip/search/" + formData.wanted);
     });
 

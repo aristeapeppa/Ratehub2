@@ -11,8 +11,8 @@ class RatingController {
 
     static getRating = async (req: Request, res: Response) => {
         let rating = new Rating();
-        console.log(req.params.clipId, res.locals.userId);
-        rating.init(undefined, req.params.clipId, res.locals.userId);
+        console.log(8, req.params.clipId)
+        await rating.init(undefined, req.params.clipId, res.locals.userId);
         res.send({
             stars: rating.stars,
             review: rating.review
