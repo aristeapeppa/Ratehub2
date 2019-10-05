@@ -1,4 +1,13 @@
 extends layout
 block content
 
-  p Login
+  .row
+    .col-md-4.offset-md-4
+      form#login
+        .form-group
+            label(for='exampleInputEmail1') Username
+            input.form-control(name='username', type='text', placeholder='Enter username')
+        .form-group
+            label(for='exampleInputPassword1') Password
+            input.form-control(name='password', type='password', placeholder='Password')
+        button.btn.btn-primary(name='submit', type='submit') Login

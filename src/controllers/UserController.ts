@@ -2,6 +2,8 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { validate } from "class-validator";
+import * as jwt from "jsonwebtoken";
+import config from "../config/config";
 
 import { UserModel } from "../models/UserModel";
 import { User } from "../classes/User";
@@ -13,8 +15,6 @@ class UserController {
     };
 
     static register = async (req: Request, res: Response) => {
-        console.log(">>>>>>>>>>");
-        console.log(req.body);
         let user = new User(req.body.username, req.body.password, req.body.role);
         user.register();
         res.status(201).send("User created");
@@ -22,6 +22,22 @@ class UserController {
 
     static loginRender = async (req: Request, res: Response) => {
         res.render('login', {});
+    };
+
+    static login = async (req: Request, res: Response) => {
+
+        // Check if username and password are set
+        let { username, password } = req.body;
+        if (!(username && password)) {
+            res.status(400).send();
+        }
+        let user = new User(username, password);
+        let ok = await user.login();
+        console.log("??", ok);
+        res
+            .status(201)
+            .cookie('ratehub', { jwt: ok })
+            .redirect(301, "../clip/5");
     };
 
     // ----------------------------------------------

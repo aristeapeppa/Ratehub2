@@ -1,4 +1,7 @@
 import { getRepository, getConnection, createQueryBuilder } from "typeorm";
+import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
+import config from "../config/config";
 
 import { UserModel } from "../models/UserModel";
 import { ClipModel } from "../models/ClipModel";
@@ -15,7 +18,7 @@ export class User {
     constructor(
         username: string,
         password: string,
-        role: string,
+        role?: string,
         id?: number) {
         this._id = id;
         this._username = username;
@@ -23,7 +26,10 @@ export class User {
         this._role = role;
     }
 
-    async init(id) { }
+    async init(id) {
+
+
+    }
 
     get username() {
         return this._username;
@@ -40,11 +46,42 @@ export class User {
     async register() {
         const userRepository = getRepository(UserModel);
         try {
+            this._password = bcrypt.hashSync(this._password, 8);
             await userRepository.save(this);
         } catch (e) {
             // res.status(409).send("username already in use");
             return;
         }
+    }
+
+    async login() {
+        const userRepository = getRepository(UserModel);
+        let user: UserModel;
+        console.log(1)
+        try {
+            user = await userRepository.findOneOrFail({ where: { username: this._username } });
+        } catch (error) {
+            // res.status(401).send();
+            return;
+        }
+
+        console.log(2)
+        //Check if encrypted password match
+        if (!bcrypt.compareSync(this._password, user.password)) {
+            // res.status(401).send();
+            return;
+        }
+
+
+        console.log(3)
+        const token = jwt.sign(
+            { userId: user.id, username: user.username },
+            config.jwtSecret,
+            { expiresIn: "1h" }
+        );
+        console.log(">>>",token)
+
+        return token;
     }
 
 }
