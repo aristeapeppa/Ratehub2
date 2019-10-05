@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { validate } from "class-validator";
 
-import { User } from "../models/UserModel";
+import { UserModel } from "../models/UserModel";
+import { User } from "../classes/User";
 
 class UserController {
 
@@ -14,6 +15,8 @@ class UserController {
     static register = async (req: Request, res: Response) => {
         console.log(">>>>>>>>>>");
         console.log(req.body);
+        let user = new User(req.body.username, req.body.password, req.body.role);
+        user.register();
         res.status(201).send("User created");
     };
 

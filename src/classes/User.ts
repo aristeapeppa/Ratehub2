@@ -1,5 +1,6 @@
 import { getRepository, getConnection, createQueryBuilder } from "typeorm";
 
+import { UserModel } from "../models/UserModel";
 import { ClipModel } from "../models/ClipModel";
 import { RatingModel } from "../models/RatingModel";
 import { Clip } from "./Clip";
@@ -37,7 +38,7 @@ export class User {
     }
 
     async register() {
-        const userRepository = getRepository(User);
+        const userRepository = getRepository(UserModel);
         try {
             await userRepository.save(this);
         } catch (e) {
