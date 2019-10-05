@@ -6,10 +6,11 @@ import homepage from "./homepage";
 
 const routes = Router();
 
-routes.use("/auth", auth);
 routes.use("/user", user);
-
-//mine
 routes.use("/", clip);
+
+// ----------------------------------------------
+
+routes.use("/auth", auth);
 
 export default routes;

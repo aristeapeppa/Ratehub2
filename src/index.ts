@@ -19,6 +19,9 @@ createConnection()
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'pug');
 
+    app.use(express.static('src/public'));
+    app.locals.basedir = path.join(__dirname, 'public');
+
     // Call midlewares
     app.use(cors());
     app.use(helmet());

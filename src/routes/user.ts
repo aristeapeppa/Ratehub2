@@ -5,6 +5,14 @@ import { Router } from "express";
 
   const router = Router();
 
+
+
+  router.get("/register", UserController.registerRender);
+  router.get("/login", UserController.loginRender);
+
+  // ----------------------------------------------
+
+
   //Get all users
   router.get("/", [checkJwt, checkRole(["ADMIN"])], UserController.listAll);
 
