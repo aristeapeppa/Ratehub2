@@ -32,8 +32,11 @@ block content
       br
       h4 Reviews
       .reviews
-        each review, index in reviews
-          if index != 0
-            hr
-          h5 #[i.fa.fa-star] #{review.stars} #[small.mr-2 /5] #{review.title}
-          p #{review.review}
+        if reviews.length > 0
+          each review, index in reviews
+            if index != 0
+              hr
+            h5 #[i.fa.fa-star] #{review.stars} #[small.mr-2 /5] #{review.title}
+            p #{review.review}
+        else
+          p.text-center No reviews yet!
