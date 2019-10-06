@@ -23,7 +23,7 @@ $(document).ready(function() {
     if (token) {
         $('#loginBtn').hide();
         $('#registerBtn').hide();
-        if (role == "VIEWER") {
+        if (role == "RATER") {
             $('#uploadBtn').hide();
             $('#reportsBtn').hide();
         } else if (role == "UPLOADER") {
@@ -149,7 +149,7 @@ $(document).ready(function() {
         if ($('input[name=role]').is(":checked")) {
             role = "UPLOADER"
         } else {
-            role = "VIEWER"
+            role = "RATER"
         }
         var formData = {
             'username': $('input[name=username]').val(),
