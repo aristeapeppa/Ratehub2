@@ -18,5 +18,8 @@ block content
             .col-md-8
               h5
                 a(href="/clip/"+clip.id) #{clip.title}
-              p #[i.fa.fa-star] #[strong #{clip.score}] #[small /5]
+              if clip.score
+                h5 #[i.fa.fa-star] #[strong #{clip.score}] #[small /5]
+              else
+                h5 #[i.fa.fa-star] ?
               p #{clip.descriptionShort}

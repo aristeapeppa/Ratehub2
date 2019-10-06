@@ -9,7 +9,10 @@ block content
         iframe.embed-responsive-item(src='https://www.youtube.com/embed/'+uid+'?rel=0', allowfullscreen='')
       br
       p #{description}
-      h5 #[i.fa.fa-star] #[strong #{score}] #[small /5]
+      if score
+        h5 #[i.fa.fa-star] #[strong #{score}] #[small /5]
+      else
+        h5 #[i.fa.fa-star] ?
       .starrr
       div
         span.your-choice-was(style='display: none;')
