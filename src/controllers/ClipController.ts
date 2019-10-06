@@ -70,6 +70,16 @@ class ClipController {
         });
     };
 
+    static uploadRender = async (req: Request, res: Response) => {
+        res.render('upload', {});
+    };
+
+    static upload = async (req: Request, res: Response) => {
+        let clip = new Clip(req.body.title, req.body.description, req.body.uid);
+        clip.upload(res.locals.userId);
+        res.send({});
+    };
+
 };
 
 export default ClipController;

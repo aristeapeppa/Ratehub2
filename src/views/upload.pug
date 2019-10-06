@@ -1,0 +1,15 @@
+extends layout
+block content
+
+  .row
+    .col-md-4.offset-md-4
+      h2 Upload
+      br
+      form#upload
+        .form-group
+          input.form-control(name='title', type='text', placeholder='Title')
+          br
+          textarea#exampleFormControlTextarea1.form-control(name='description', rows='3', placeholder='Write a short description')
+          br
+          input.form-control(name='uid', type='text', placeholder="Paste youtube's video unique id")
+        button#uploadSubBtn.btn.btn-primary(name='submit', type='submit') Upload

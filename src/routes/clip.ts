@@ -11,5 +11,7 @@ router.post("/clip/:id/report", [checkJwt], ClipController.report);
 router.post("/clip/:id/delete", [checkJwt], ClipController.delete);
 router.get("/clip/search/:wanted", ClipController.searchRender);
 router.get("/reports", ClipController.reportsRender);
+router.get("/upload", ClipController.uploadRender);
+router.post("/upload", [checkJwt], ClipController.upload);
 
 export default router;

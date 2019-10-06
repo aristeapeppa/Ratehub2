@@ -12,12 +12,14 @@ export class Clip {
     private _ratings: Rating[] = [];
     private _reports: number;
 
-    constructor(
-        // title: string,
-        // description: string,
-        // uid?: string,
-        // id?: number
-    ) { }
+    constructor(title: string, description: string, uid?: string, id?: number
+    ) {
+        this._id = id;
+        this._title = title;
+        this._description = description;
+        this._uid = uid;
+        this._reports = 0;
+    }
 
     async init(id) {
 
@@ -107,6 +109,22 @@ export class Clip {
         await clipRepository.save(clip);
     }
 
+    async upload(userId) {
+        await getConnection()
+            .createQueryBuilder()
+            .insert()
+            .into(ClipModel)
+            .values([
+                {
+                    title: this._title,
+                    description: this._description,
+                    uid: this._uid,
+                    reports: this._reports,
+                    userId: userId
+                }
+            ])
+            .execute();
+    }
 
     async delete() {
         const clipRepository = getRepository(ClipModel);

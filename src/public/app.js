@@ -43,6 +43,27 @@ $(document).ready(function() {
         window.location.replace("http://localhost:3000");
     });
 
+    if (url.includes("/upload") && token) {
+        $("#upload").submit(function(event) {
+            event.preventDefault();
+            var formData = {
+                'title': $('input[name=title]').val(),
+                'description': $('textarea[name=description]').val(),
+                'uid': $('input[name=uid]').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "/upload",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                headers: { "auth": localStorage.getItem('token') }
+            }).done(function(response) {
+                $('#uploadSubBtn').prop('disabled', true);
+                $('#uploadSubBtn').html('Uploaded');
+            });
+        });
+
+    }
 
     if (url.includes("/clip/") && token) {
 
