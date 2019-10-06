@@ -1,0 +1,20 @@
+extends layout
+block content
+
+  .row
+    .col-md-6.offset-md-3
+      h2 Reported clips
+      p (#{length} results)
+      br
+      each clip, index in clips
+        if index != 0
+          hr
+        a#deleteBtn(onclick='deleteClip('+ clip.id +')')
+         p.text-danger #[i.fa.fa-trash.mr-2] #{clip.reports} reports
+        .row
+          .col-md-4
+            img.img-fluid(src='https://img.youtube.com/vi/' + clip.uid + '/hqdefault.jpg')
+          .col-md-8
+            a(href="/clip/"+clip.id)
+              h5 #{clip.score} #[small /5] #{clip.title}
+            p #{clip.descriptionShort}

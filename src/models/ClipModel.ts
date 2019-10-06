@@ -46,6 +46,6 @@ export class ClipModel {
   @OneToMany(type => RatingModel, rating => rating.clip)
   ratings: RatingModel[];
 
-  @ManyToOne(type => UserModel, user => user.clips)
+  @ManyToOne(type => UserModel, user => user.clips, { onDelete: 'CASCADE' })
   user: UserModel;
 }

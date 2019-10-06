@@ -44,6 +44,7 @@ export class Clip {
         this._id = clip.id;
         this._title = clip.title;
         this._description = clip.description;
+        this._reports = clip.reports;
         this._uid = clip.uid;
     }
 
@@ -59,6 +60,9 @@ export class Clip {
         return this._description;
     }
 
+    get reports() {
+        return this._reports;
+    }
 
     get descriptionShort() {
         return this._description.substring(0, 150) + ' ...';
@@ -101,6 +105,18 @@ export class Clip {
 
         clip.reports += 1;
         await clipRepository.save(clip);
+    }
+
+
+    async delete() {
+        const clipRepository = getRepository(ClipModel);
+        let clip = await clipRepository.findOne({
+            where: {
+                id: this._id
+            }
+        });
+
+        await clipRepository.remove(clip);
     }
 
 }

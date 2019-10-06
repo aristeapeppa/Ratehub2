@@ -1,3 +1,16 @@
+
+function deleteClip(which) {
+    $.ajax({
+        type: "POST",
+        url: "/clip/" + which + "/delete",
+        contentType: "application/json",
+        headers: { "auth": localStorage.getItem('token') }
+    }).done(function(res) {
+        window.location.replace("http://localhost:3000/reports");
+    });
+};
+
+
 $(document).ready(function() {
 
     var token = localStorage.getItem('token');
@@ -12,10 +25,16 @@ $(document).ready(function() {
         $('#registerBtn').hide();
         if (role == "VIEWER") {
             $('#uploadBtn').hide();
+            $('#reportsBtn').hide();
+        } else if (role == "UPLOADER") {
+            $('#reportsBtn').hide();
+        } else if (role == "ADMIN") {
+            $('#uploadBtn').hide();
         }
     } else {
         $('#logoutBtn').hide();
         $('#uploadBtn').hide();
+        $('#reportsBtn').hide();
         $('#reportBtn').hide();
     }
 
@@ -26,7 +45,6 @@ $(document).ready(function() {
 
 
     if (url.includes("/clip/") && token) {
-
 
         $("#reportBtn").click(function() {
             $.ajax({

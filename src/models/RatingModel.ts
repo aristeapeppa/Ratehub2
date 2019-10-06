@@ -40,9 +40,9 @@ export class RatingModel {
   @Column({ type: 'int', nullable: true })
   userId?: number | null
 
-  @ManyToOne(type => ClipModel, clip => clip.ratings)
+  @ManyToOne(type => ClipModel, clip => clip.ratings, { onDelete: 'CASCADE' })
   clip: ClipModel;
 
-  @ManyToOne(type => UserModel, user => user.ratings)
+  @ManyToOne(type => UserModel, user => user.ratings, { onDelete: 'CASCADE' })
   user: UserModel;
 }

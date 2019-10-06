@@ -42,6 +42,14 @@ class ClipController {
         res.send({});
     };
 
+
+    static delete = async (req: Request, res: Response) => {
+        let clip = new Clip();
+        await clip.init(req.params.id);
+        await clip.delete();
+        res.send({});
+    };
+
     static searchRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");
         await clipsCollection.init("search", req.params.wanted);
@@ -49,6 +57,16 @@ class ClipController {
             clips: clipsCollection.things,
             length: clipsCollection.length,
             wanted: req.params.wanted
+        });
+    };
+
+
+    static reportsRender = async (req: Request, res: Response) => {
+        let clipsCollection = new Collection("clips");
+        await clipsCollection.init("reports");
+        res.render('reports', {
+            clips: clipsCollection.things,
+            length: clipsCollection.length
         });
     };
 

@@ -1,4 +1,4 @@
-import { getRepository, getConnection, createQueryBuilder, Like } from "typeorm";
+import { getRepository, getConnection, createQueryBuilder, Like, MoreThan } from "typeorm";
 
 import { UserModel } from "../models/UserModel";
 import { ClipModel } from "../models/ClipModel";
@@ -16,7 +16,7 @@ export class Collection {
         this._things = [];
     }
 
-    async init(action: "search" | "newest", wanted?: string) {
+    async init(action: "search" | "newest" | "reports", wanted?: string) {
         this._things = [];
         let things;
         let thingModel;
@@ -51,6 +51,13 @@ export class Collection {
                         { title: Like("%" + wanted + "%") },
                         { description: Like("%" + wanted + "%") }
                     ]
+                });
+                break;
+            }
+            case "reports": {
+                const thingRepository = getRepository(thingModel);
+                things = await thingRepository.find({
+                    where: { reports: MoreThan(0) }
                 });
                 break;
             }

@@ -23,3 +23,7 @@ h4 {
 .reported {
     display: none;
 }
+
+#deleteBtn {
+    cursor: pointer;
+}
