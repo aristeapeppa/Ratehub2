@@ -35,6 +35,12 @@ class ClipController {
         res.send({});
     };
 
+    static report = async (req: Request, res: Response) => {
+        let clip = new Clip();
+        await clip.init(req.params.id);
+        await clip.report();
+        res.send({});
+    };
 
     static searchRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");

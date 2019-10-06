@@ -13,10 +13,7 @@ class RatingController {
     static getRating = async (req: Request, res: Response) => {
         let rating = new Rating();
         let clipId = parseInt(req.params.clipId)
-        console.log(clipId)
-        console.log(res.locals.userId)
         await rating.init(undefined, clipId, res.locals.userId);
-        console.log(rating)
         res.send({
             stars: rating.stars,
             title: rating.title,

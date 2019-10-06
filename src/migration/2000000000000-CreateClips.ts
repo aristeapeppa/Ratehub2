@@ -30,6 +30,7 @@ export class CreateClips2000000000000 implements MigrationInterface {
             clip.title = video.name;
             clip.description = Faker.lorem.paragraphs();
             clip.uid = video.id;
+            clip.reports = 0;
             clip.user = users[Math.floor(Math.random() * users.length)];
             clips.push(clip);
         });

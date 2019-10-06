@@ -30,6 +30,9 @@ export class ClipModel {
   uid: string;
 
   @Column()
+  reports: number;
+
+  @Column()
   @CreateDateColumn()
   createdAt: Date;
 

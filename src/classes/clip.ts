@@ -10,6 +10,7 @@ export class Clip {
     private _description: string;
     private _uid: string;
     private _ratings: Rating[] = [];
+    private _reports: number;
 
     constructor(
         // title: string,
@@ -86,9 +87,20 @@ export class Clip {
     }
 
     async rate(stars, title, description, clipId, userId) {
-        console.log(stars)
         let rating = new Rating(stars, title, description);
         await rating.save(clipId, userId);
+    }
+
+    async report() {
+        const clipRepository = getRepository(ClipModel);
+        let clip = await clipRepository.findOne({
+            where: {
+                id: this._id
+            }
+        });
+
+        clip.reports += 1;
+        await clipRepository.save(clip);
     }
 
 }

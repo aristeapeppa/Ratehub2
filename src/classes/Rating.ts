@@ -35,7 +35,6 @@ export class Rating {
             });
         }
 
-        console.log(rating)
         if (rating) {
             this._id = rating.id;
             this._stars = rating.stars;
@@ -57,8 +56,6 @@ export class Rating {
     }
 
     async save(clipId, userId) {
-
-        console.log("MESA")
         const ratingRepository = getRepository(RatingModel);
         let rating = await ratingRepository.findOne({
             where: {
@@ -68,8 +65,6 @@ export class Rating {
         });
 
         if (rating) {
-            console.log(this._title)
-            console.log(this._review)
             rating.stars = this._stars;
             rating.title = this._title;
             rating.description = this._review;

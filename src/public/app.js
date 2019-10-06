@@ -20,7 +20,6 @@ $(document).ready(function() {
     }
 
     $("#logoutBtn").click(function() {
-        console.log(6)
         localStorage.clear();
         window.location.replace("http://localhost:3000");
     });
@@ -30,18 +29,15 @@ $(document).ready(function() {
 
 
         $("#reportBtn").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "/clip/" + id + "/report",
+                contentType: "application/json",
+                headers: { "auth": localStorage.getItem('token') }
+            }).done(function(res) {
                 $('#reportBtn').prop('disabled', true);
-            $('#reportBtn').html('Reported');
-            // TODO: edw
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/clip/" + id + "/report",
-            //     contentType: "application/json",
-            //     headers: { "auth": localStorage.getItem('token') }
-            // }).done(function(res) {
-            //     $('.reported').show();
-            //     $('#reportBtn').disable();
-            // });
+                $('#reportBtn').html('Reported');
+            });
         });
 
         $.ajax({
@@ -50,7 +46,6 @@ $(document).ready(function() {
             contentType: "application/json",
             headers: { "auth": localStorage.getItem('token') }
         }).done(function(res) {
-            console.log(res)
             $('input[name=title]').val(res.title);
             $('textarea[name=review]').val(res.review);
             if (res.stars > 0) {
@@ -82,7 +77,6 @@ $(document).ready(function() {
 
             $("#review").submit(function(event) {
                 event.preventDefault();
-                console.log($('textarea[name=review]').val());
                 var formData = {
                     'stars': res.stars,
                     'title': $('input[name=title]').val(),
