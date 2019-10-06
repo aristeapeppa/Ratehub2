@@ -6,6 +6,20 @@ $(document).ready(function() {
     var splits = window.location.href.split("/");
     var id = splits[splits.length - 1];
 
+    if (token) {
+        $('#loginBtn').hide();
+        $('#registerBtn').hide();
+    } else {
+        $('#logoutBtn').hide();
+    }
+
+    $("#logoutBtn").click(function() {
+        console.log(6)
+        localStorage.clear();
+        window.location.replace("http://localhost:3000");
+    });
+
+
     if (url.includes("/clip/") && token) {
         $.ajax({
             type: "GET",
@@ -41,26 +55,26 @@ $(document).ready(function() {
             });
 
 
-        $("#review").submit(function(event) {
-            event.preventDefault();
-            console.log($('textarea[name=review]').val());
-            var formData = {
-                'stars': res.stars,
-                'title': $('input[name=title]').val(),
-                'review': $('textarea[name=review]').val()
-            };
-            $.ajax({
-                type: "POST",
-                url: "/clip/" + id + "/rate",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                headers: { "auth": localStorage.getItem('token') }
-            }).done(function(response) {
-                // $("#server-results").html(response);
+            $("#review").submit(function(event) {
+                event.preventDefault();
+                console.log($('textarea[name=review]').val());
+                var formData = {
+                    'stars': res.stars,
+                    'title': $('input[name=title]').val(),
+                    'review': $('textarea[name=review]').val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/clip/" + id + "/rate",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    headers: { "auth": localStorage.getItem('token') }
+                }).done(function(response) {
+                    // $("#server-results").html(response);
+                });
             });
-        });
 
-           
+
         });
 
 
