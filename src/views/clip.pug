@@ -3,18 +3,26 @@ block content
 
   .row
     .col-md-6.offset-md-3
-      h2 #{title}
+      h3 #{title}
+      br
       .embed-responsive.embed-responsive-16by9
         iframe.embed-responsive-item(src='https://www.youtube.com/embed/'+uid+'?rel=0', allowfullscreen='')
       br
       p #{description}
-      p #[strong #{score}] #[small /5]
+      h5 #[i.fa.fa-star] #[strong #{score}] #[small /5]
       .starrr
       div
         span.your-choice-was(style='display: none;')
           | Your rating was
           span.choice
           | .
+      form#review
+        .form-group
+          //- label(for='exampleFormControlTextarea1') Example textarea
+          input.form-control(name='title', type='text', placeholder='Title')
+          textarea#exampleFormControlTextarea1.form-control(name='review', rows='3')
+        button.btn.btn-primary(name='submit', type='submit') Submit
+
 
       br
       h4 Reviews
@@ -22,5 +30,5 @@ block content
         each review, index in reviews
           if index != 0
             hr
-          h5 #{review.stars} #[small /5] #{review.title}
+          h5 #[i.fa.fa-star] #{review.stars} #[small.mr-2 /5] #{review.title}
           p #{review.review}

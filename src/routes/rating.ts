@@ -6,5 +6,6 @@ import { checkRole } from "../middlewares/checkRole";
 const router = Router();
 
 router.get("/:clipId", [checkJwt], RatingController.getRating);
+router.post("/:clipId", [checkJwt], RatingController.postRating);
 
 export default router;

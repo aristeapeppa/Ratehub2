@@ -20,10 +20,10 @@ export class RatingModel {
   @IsNotEmpty()
   stars: number;
 
-  @Column()
+  @Column({ nullable: true })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()

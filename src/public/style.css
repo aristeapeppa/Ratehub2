@@ -11,3 +11,11 @@ h4 {
     padding: 20px;
     border-radius: 10px;
 }
+
+.fa-star {
+    color: #FFD119;
+}
+
+#review {
+    display: none;
+}

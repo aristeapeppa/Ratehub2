@@ -85,9 +85,10 @@ export class Clip {
         return Math.round((sum / this._ratings.length) * 10) / 10;
     }
 
-    async rate(stars, title, description) {
+    async rate(stars, title, description, clipId, userId) {
+        console.log(stars)
         let rating = new Rating(stars, title, description);
-        await rating.save();
+        await rating.save(clipId, userId);
     }
 
 }

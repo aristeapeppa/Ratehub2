@@ -5,8 +5,8 @@ import { RatingModel } from "../models/RatingModel";
 export class Rating {
     private _id: number;
     private _stars: number;
-    private _title: string;
-    private _review: string;
+    private _title: string = '';
+    private _review: string = '';
 
     constructor(stars?: number, title?: string, review?: string, id?: number) {
         this._id = id;
@@ -35,6 +35,7 @@ export class Rating {
             });
         }
 
+        console.log(rating)
         if (rating) {
             this._id = rating.id;
             this._stars = rating.stars;
@@ -55,15 +56,40 @@ export class Rating {
         return this._review;
     }
 
-    async save() {
-        await getConnection()
-            .createQueryBuilder()
-            .insert()
-            .into(RatingModel)
-            .values([
-                { stars: this.stars, title: this.title, description: this.review }
-            ])
-            .execute();
+    async save(clipId, userId) {
+
+        console.log("MESA")
+        const ratingRepository = getRepository(RatingModel);
+        let rating = await ratingRepository.findOne({
+            where: {
+                clipId: clipId,
+                userId: userId
+            }
+        });
+
+        if (rating) {
+            console.log(this._title)
+            console.log(this._review)
+            rating.stars = this._stars;
+            rating.title = this._title;
+            rating.description = this._review;
+            await ratingRepository.save(rating);
+        } else {
+            await getConnection()
+                .createQueryBuilder()
+                .insert()
+                .into(RatingModel)
+                .values([
+                    {
+                        stars: this.stars,
+                        title: this.title,
+                        description: this.review,
+                        clipId: clipId,
+                        userId: userId
+                    }
+                ])
+                .execute();
+        }
     }
 
 }

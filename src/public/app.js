@@ -4,27 +4,65 @@ $(document).ready(function() {
     var url = window.location.href;
 
     var splits = window.location.href.split("/");
+    var id = splits[splits.length - 1];
 
     if (url.includes("/clip/") && token) {
         $.ajax({
             type: "GET",
-            url: "/rating/" + splits[splits.length - 1],
+            url: "/rating/" + id,
             contentType: "application/json",
             headers: { "auth": localStorage.getItem('token') }
         }).done(function(res) {
-            console.log("&&&&&", res);
+            console.log(res)
+            $('input[name=title]').val(res.title);
+            $('textarea[name=review]').val(res.review);
+            if (res.stars > 0) {
+                $('#review').show();
+            }
             $('.starrr').starrr({
                 rating: res.stars,
                 change: function(e, value) {
                     if (value) {
-                        $('.your-choice-was').show();
-                        $('.choice').text(value);
+                        $.ajax({
+                            type: "POST",
+                            url: "/clip/" + id + "/rate",
+                            contentType: "application/json",
+                            data: JSON.stringify({ stars: value }),
+                            headers: { "auth": localStorage.getItem('token') }
+                        }).done(function(res) {
+                            $('.your-choice-was').show();
+                            $('.choice').text(value);
+                            $('#review').show();
+                        });
                     } else {
                         $('.your-choice-was').hide();
                     }
                 }
             });
+
+
+        $("#review").submit(function(event) {
+            event.preventDefault();
+            console.log($('textarea[name=review]').val());
+            var formData = {
+                'stars': res.stars,
+                'title': $('input[name=title]').val(),
+                'review': $('textarea[name=review]').val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/clip/" + id + "/rate",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                headers: { "auth": localStorage.getItem('token') }
+            }).done(function(response) {
+                // $("#server-results").html(response);
+            });
         });
+
+           
+        });
+
 
 
     }
