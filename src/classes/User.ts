@@ -48,9 +48,9 @@ export class User {
         try {
             this._password = bcrypt.hashSync(this._password, 8);
             await userRepository.save(this);
+            return 0;
         } catch (e) {
-            // res.status(409).send("username already in use");
-            return;
+            return 1;
         }
     }
 
@@ -60,16 +60,12 @@ export class User {
         try {
             user = await userRepository.findOneOrFail({ where: { username: this._username } });
         } catch (error) {
-            // res.status(401).send();
-            return;
+            return 1;
         }
 
-        //Check if encrypted password match
         if (!bcrypt.compareSync(this._password, user.password)) {
-            // res.status(401).send();
-            return;
+            return 2;
         }
-
 
         const token = jwt.sign(
             { userId: user.id, username: user.username },

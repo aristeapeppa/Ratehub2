@@ -27,3 +27,7 @@ h4 {
 #deleteBtn {
     cursor: pointer;
 }
+
+.form-info {
+    display: none;
+}

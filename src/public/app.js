@@ -162,8 +162,14 @@ $(document).ready(function() {
             url: "/user/register",
             contentType: "application/json",
             data: JSON.stringify(formData)
-        }).done(function(response) {
-            // $("#server-results").html(response);
+        }).done(function(res) {
+            if (res.code == 1) {
+                $('#username-in-use').show();
+            } else {
+                $('#username-in-use').hide();
+                $('#registerSubBtn').prop('disabled', true);
+                $('#registerSubBtn').html('Done. You can now login');
+            }
         });
     });
 
@@ -181,9 +187,20 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify(formData)
         }).done(function(res) {
-            localStorage.setItem("role", res.role);
-            localStorage.setItem("token", res.token);
-            window.location.replace("http://localhost:3000");
+            if (res.code == 1) {
+                $('#wrong-password').hide();
+                $('#wrong-username').show();
+            } else if (res.code == 2) {
+                $('#wrong-username').hide();
+                $('#wrong-password').show();
+            } else {
+                $('#wrong-username').hide();
+                $('#wrong-password').hide();
+                localStorage.setItem("role", res.role);
+                localStorage.setItem("token", res.token);
+                window.location.replace("http://localhost:3000");
+            }
+
 
         });
     });
