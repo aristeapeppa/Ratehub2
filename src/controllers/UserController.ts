@@ -35,7 +35,7 @@ class UserController {
         let ok = await user.login();
         res
             .status(201)
-            .send({token: ok});
+            .send({token: ok[0], role: ok[1]});
     };
 
     // ----------------------------------------------

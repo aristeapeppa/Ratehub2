@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     var token = localStorage.getItem('token');
+    var role = localStorage.getItem('role');
     var url = window.location.href;
 
     var splits = window.location.href.split("/");
@@ -9,8 +10,12 @@ $(document).ready(function() {
     if (token) {
         $('#loginBtn').hide();
         $('#registerBtn').hide();
+        if (role == "VIEWER") {
+            $('#uploadBtn').hide();
+        }
     } else {
         $('#logoutBtn').hide();
+        $('#uploadBtn').hide();
     }
 
     $("#logoutBtn").click(function() {
@@ -84,10 +89,16 @@ $(document).ready(function() {
 
     $("#register").submit(function(event) {
         event.preventDefault();
+        let role;
+        if ($('input[name=role]').is(":checked")) {
+            role = "UPLOADER"
+        } else {
+            role = "VIEWER"
+        }
         var formData = {
             'username': $('input[name=username]').val(),
             'password': $('input[name=password]').val(),
-            'role': $('input[name=role]').val()
+            'role': role
         };
         // var form_data = $(this).serialize(); //Encode form elements for submission
         $.ajax({
@@ -114,6 +125,7 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify(formData)
         }).done(function(res) {
+            localStorage.setItem("role", res.role);
             localStorage.setItem("token", res.token);
             window.location.replace("http://localhost:3000");
 

@@ -77,7 +77,7 @@ export class User {
             { expiresIn: "1h" }
         );
 
-        return token;
+        return [token, user.role];
     }
 
 }
