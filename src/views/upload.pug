@@ -7,9 +7,9 @@ block content
       br
       form#upload
         .form-group
-          input.form-control(name='title', type='text', placeholder='Title')
+          input.form-control(name='title', type='text', placeholder='Title', required='')
           br
-          textarea#exampleFormControlTextarea1.form-control(name='description', rows='3', placeholder='Write a short description')
+          textarea#exampleFormControlTextarea1.form-control(name='description', rows='3', placeholder='Write a short description', required='')
           br
-          input.form-control(name='uid', type='text', placeholder="Paste youtube's video unique id")
+          input.form-control(name='uid', type='text', placeholder="Paste youtube's video unique id", required='')
         button#uploadSubBtn.btn.btn-primary(name='submit', type='submit') Upload

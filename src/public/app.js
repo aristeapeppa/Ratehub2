@@ -38,7 +38,8 @@ $(document).ready(function() {
         $('#reportBtn').hide();
     }
 
-    $("#logoutBtn").click(function() {
+    $("#logoutBtn").click(function(event) {
+        event.preventDefault();
         localStorage.clear();
         window.location.replace("http://localhost:3000");
     });
