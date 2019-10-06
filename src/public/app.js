@@ -16,6 +16,7 @@ $(document).ready(function() {
     } else {
         $('#logoutBtn').hide();
         $('#uploadBtn').hide();
+        $('#reportBtn').hide();
     }
 
     $("#logoutBtn").click(function() {
@@ -26,6 +27,23 @@ $(document).ready(function() {
 
 
     if (url.includes("/clip/") && token) {
+
+
+        $("#reportBtn").click(function() {
+                $('#reportBtn').prop('disabled', true);
+            $('#reportBtn').html('Reported');
+            // TODO: edw
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/clip/" + id + "/report",
+            //     contentType: "application/json",
+            //     headers: { "auth": localStorage.getItem('token') }
+            // }).done(function(res) {
+            //     $('.reported').show();
+            //     $('#reportBtn').disable();
+            // });
+        });
+
         $.ajax({
             type: "GET",
             url: "/rating/" + id,
@@ -37,6 +55,8 @@ $(document).ready(function() {
             $('textarea[name=review]').val(res.review);
             if (res.stars > 0) {
                 $('#review').show();
+                $('.your-choice-was').show();
+                $('.choice').text(res.stars);
             }
             $('.starrr').starrr({
                 rating: res.stars,
@@ -75,7 +95,9 @@ $(document).ready(function() {
                     data: JSON.stringify(formData),
                     headers: { "auth": localStorage.getItem('token') }
                 }).done(function(response) {
-                    // $("#server-results").html(response);
+
+                    $('#reviewBtn').prop('disabled', true);
+                    $('#reviewBtn').html('Submited');
                 });
             });
 

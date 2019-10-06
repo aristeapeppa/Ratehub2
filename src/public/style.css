@@ -19,3 +19,7 @@ h4 {
 #review {
     display: none;
 }
+
+.reported {
+    display: none;
+}
