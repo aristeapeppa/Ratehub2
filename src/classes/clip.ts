@@ -12,7 +12,7 @@ export class Clip {
     private _ratings: Rating[] = [];
     private _reports: number;
 
-    constructor(title: string, description: string, uid?: string, id?: number
+    constructor(title?: string, description?: string, uid?: string, id?: number
     ) {
         this._id = id;
         this._title = title;
@@ -77,7 +77,7 @@ export class Clip {
     get reviews() {
         let reviews = [];
         this._ratings.forEach((rating) => {
-            if (rating.title != '') {
+            if (rating.title != '' && rating.title != null) {
                 reviews.push(rating);
             }
         });
