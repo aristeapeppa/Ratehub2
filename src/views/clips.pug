@@ -16,6 +16,7 @@ block content
             .col-md-4
               img.img-fluid(src='https://img.youtube.com/vi/' + clip.uid + '/hqdefault.jpg')
             .col-md-8
-              a(href="/clip/"+clip.id)
-                h5 #{clip.score} #[small /5] #{clip.title}
+              h5
+                a(href="/clip/"+clip.id) #{clip.title}
+              p #[i.fa.fa-star] #[strong #{clip.score}] #[small /5]
               p #{clip.descriptionShort}

@@ -65,7 +65,7 @@ export class Clip {
     }
 
     get descriptionShort() {
-        return this._description.substring(0, 150) + ' ...';
+        return this._description.substring(0, 80) + ' ...';
     }
 
     get uid() {
