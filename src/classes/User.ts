@@ -15,20 +15,11 @@ export class User {
     private _password: string;
     private _role: string;
 
-    constructor(
-        username: string,
-        password: string,
-        role?: string,
-        id?: number) {
+    constructor(username: string, password: string, role?: string, id?: number) {
         this._id = id;
         this._username = username;
         this._password = password;
         this._role = role;
-    }
-
-    async init(id) {
-
-
     }
 
     get username() {
@@ -57,6 +48,7 @@ export class User {
     async login() {
         const userRepository = getRepository(UserModel);
         let user: UserModel;
+
         try {
             user = await userRepository.findOneOrFail({ where: { username: this._username } });
         } catch (error) {
@@ -75,5 +67,4 @@ export class User {
 
         return [token, user.role];
     }
-
 }

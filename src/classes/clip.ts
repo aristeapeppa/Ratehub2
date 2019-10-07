@@ -12,8 +12,7 @@ export class Clip {
     private _ratings: Rating[] = [];
     private _reports: number;
 
-    constructor(title?: string, description?: string, uid?: string, id?: number
-    ) {
+    constructor(title?: string, description?: string, uid?: string, id?: number) {
         this._id = id;
         this._title = title;
         this._description = description;
@@ -22,14 +21,12 @@ export class Clip {
     }
 
     async init(id) {
-
         const clip = await getConnection()
             .createQueryBuilder()
             .select("clip")
             .from(ClipModel, "clip")
             .where("clip.id = :id", { id: id })
             .getOne();
-
 
         const ratings = await getConnection()
             .createQueryBuilder()
@@ -136,5 +133,4 @@ export class Clip {
 
         await clipRepository.remove(clip);
     }
-
 }

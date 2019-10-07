@@ -1,4 +1,3 @@
-
 function deleteClip(which) {
     $.ajax({
         type: "POST",
@@ -10,9 +9,7 @@ function deleteClip(which) {
     });
 };
 
-
 $(document).ready(function() {
-
     var token = localStorage.getItem('token');
     var role = localStorage.getItem('role');
     var url = window.location.href;
@@ -63,11 +60,9 @@ $(document).ready(function() {
                 $('#uploadSubBtn').html('Uploaded');
             });
         });
-
     }
 
     if (url.includes("/clip/") && token) {
-
         $("#reportBtn").click(function() {
             $.ajax({
                 type: "POST",
@@ -114,7 +109,6 @@ $(document).ready(function() {
                 }
             });
 
-
             $("#review").submit(function(event) {
                 event.preventDefault();
                 var formData = {
@@ -129,19 +123,12 @@ $(document).ready(function() {
                     data: JSON.stringify(formData),
                     headers: { "auth": localStorage.getItem('token') }
                 }).done(function(response) {
-
                     $('#reviewBtn').prop('disabled', true);
                     $('#reviewBtn').html('Submited');
                 });
             });
-
-
         });
-
-
-
     }
-
 
     $("#register").submit(function(event) {
         event.preventDefault();
@@ -156,7 +143,6 @@ $(document).ready(function() {
             'password': $('input[name=password]').val(),
             'role': role
         };
-        // var form_data = $(this).serialize(); //Encode form elements for submission
         $.ajax({
             type: "POST",
             url: "/user/register",
@@ -173,14 +159,12 @@ $(document).ready(function() {
         });
     });
 
-
     $("#login").submit(function(event) {
         event.preventDefault();
         var formData = {
             'username': $('input[name=username]').val(),
             'password': $('input[name=password]').val()
         };
-        // var form_data = $(this).serialize(); //Encode form elements for submission
         $.ajax({
             type: "POST",
             url: "/user/login",
@@ -200,19 +184,14 @@ $(document).ready(function() {
                 localStorage.setItem("token", res.token);
                 window.location.replace("http://localhost:3000");
             }
-
-
         });
     });
-
 
     $("#search").submit(function(event) {
         event.preventDefault();
         var formData = {
             'wanted': $('input[name=wanted]').val()
         };
-        // var form_data = $(this).serialize(); //Encode form elements for submission
         window.location.replace("http://localhost:3000/clip/search/" + formData.wanted);
     });
-
 });

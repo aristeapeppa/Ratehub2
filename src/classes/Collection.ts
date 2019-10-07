@@ -20,6 +20,7 @@ export class Collection {
         this._things = [];
         let things;
         let thingModel;
+
         switch (this._kind) {
             case "users": {
                 thingModel = UserModel;
@@ -63,7 +64,6 @@ export class Collection {
             }
         }
 
-
         const a = async () => {
             for (const thing of things) {
                 let thng;
@@ -97,5 +97,4 @@ export class Collection {
     get length() {
         return this._things.length;
     }
-
 }

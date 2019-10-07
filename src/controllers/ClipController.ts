@@ -5,8 +5,6 @@ import { Clip } from "../classes/Clip";
 import { Collection } from "../classes/Collection";
 
 class ClipController {
-
-
     static homepageRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");
         await clipsCollection.init("newest");
@@ -42,7 +40,6 @@ class ClipController {
         res.send({});
     };
 
-
     static delete = async (req: Request, res: Response) => {
         let clip = new Clip();
         await clip.init(req.params.id);
@@ -59,7 +56,6 @@ class ClipController {
             wanted: req.params.wanted
         });
     };
-
 
     static reportsRender = async (req: Request, res: Response) => {
         let clipsCollection = new Collection("clips");
@@ -79,7 +75,6 @@ class ClipController {
         clip.upload(res.locals.userId);
         res.send({});
     };
-
 };
 
 export default ClipController;

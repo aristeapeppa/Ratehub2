@@ -25,7 +25,6 @@ export class Rating {
                 .where("rating.id = :id", { id: id })
                 .getOne();
         } else {
-
             const ratingRepository = getRepository(RatingModel);
             rating = await ratingRepository.findOne({
                 where: {
@@ -86,5 +85,4 @@ export class Rating {
                 .execute();
         }
     }
-
 }

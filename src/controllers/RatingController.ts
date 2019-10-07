@@ -9,7 +9,6 @@ import { Rating } from "../classes/Rating";
 import { Clip } from "../classes/Clip";
 
 class RatingController {
-
     static getRating = async (req: Request, res: Response) => {
         let rating = new Rating();
         let clipId = parseInt(req.params.clipId)
@@ -26,7 +25,6 @@ class RatingController {
         await rating.save(req.params.clipId, res.locals.userId);
         res.send({});
     };
-
 };
 
 export default RatingController;
